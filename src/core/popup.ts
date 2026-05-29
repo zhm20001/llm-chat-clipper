@@ -94,7 +94,7 @@ const memoizedExtractPageContent = memoizeWithExpiration(
 		expirationMs: 5000,
 		keyFn: async (tabId: number) => {
 			const tab = await getTabInfo(tabId);
-			return `${tabId}-${tab.url}`;
+			return `${tabId}-${tab.url}-${generalSettings.includeThoughts}`;
 		}
 	}
 );
@@ -377,6 +377,7 @@ function showExtractSection() {
 			thoughtsToggle.onchange = () => {
 				generalSettings.includeThoughts = thoughtsToggle.checked;
 				saveSettings({ includeThoughts: thoughtsToggle.checked });
+				memoizedExtractPageContent.clear();
 			};
 		}
 	}
