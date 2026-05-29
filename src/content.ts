@@ -71,6 +71,8 @@ declare global {
 		if (request.action === "getPageContent") {
 			const flattenTimeout = new Promise<void>(resolve => setTimeout(resolve, 3000));
 			Promise.race([flattenShadowDom(document), flattenTimeout]).then(async () => {
+				const storageData = await browser.storage.sync.get('general_settings') as { general_settings?: { includeThoughts?: boolean } };
+				const includeThoughts = storageData.general_settings?.includeThoughts ?? false;
 				let selectedHtml = '';
 				const selection = window.getSelection();
 
@@ -105,7 +107,7 @@ declare global {
 						const role = roleEl?.getAttribute('data-turn-role') || 'Unknown';
 						const isThinking = turn.querySelector('.mat-expansion-panel-body') !== null;
 
-						if (isThinking && !request.includeThoughts) {
+						if (isThinking && !includeThoughts) {
 							parts.push(`# Model\n\n> Thoughts`);
 							continue;
 						}
