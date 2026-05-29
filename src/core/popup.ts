@@ -187,9 +187,7 @@ function setupMessageListeners() {
 			return true;
 		} else if (request.action === "tabUrlChanged") {
 			if (request.tabId === currentTabId) {
-				if (currentTabId !== undefined) {
-					refreshFields(currentTabId);
-				}
+				showExtractSection();
 			}
 		}
 	});
@@ -252,7 +250,6 @@ document.addEventListener('DOMContentLoaded', async function() {
 					});
 				}
 
-				await refreshFields(currentTabId);
 			} catch (error) {
 				console.error('Error initializing popup:', error);
 				showError(getMessage('pleaseReload'));
@@ -318,9 +315,23 @@ function setupEventListeners(tabId: number) {
 }
 
 async function initializeUI() {
-	const clipButton = document.getElementById('clip-btn');
-	if (clipButton) {
-		clipButton.focus();
+	const extractBtn = document.getElementById('extract-btn') as HTMLButtonElement;
+	if (extractBtn) {
+		extractBtn.focus();
+		extractBtn.addEventListener('click', async () => {
+			extractBtn.textContent = 'Extracting...';
+			extractBtn.disabled = true;
+			try {
+				if (currentTabId !== undefined) {
+					await refreshFields(currentTabId);
+				}
+				showEditorSection();
+			} catch (error) {
+				console.error('Error during extraction:', error);
+				extractBtn.textContent = 'Extract';
+				extractBtn.disabled = false;
+			}
+		});
 	}
 
 	const showMoreActionsButton = document.getElementById('show-variables') as HTMLElement;
@@ -334,6 +345,30 @@ async function initializeUI() {
 			initializeVariablesPanel(variablesPanel, currentTemplate, currentVariables);
 			await showVariables();
 		});
+	}
+}
+
+function showEditorSection() {
+	const extractSection = document.getElementById('extract-section');
+	const editorSection = document.getElementById('editor-section');
+	if (extractSection) extractSection.style.display = 'none';
+	if (editorSection) editorSection.style.display = 'block';
+
+	const clipButton = document.getElementById('clip-btn');
+	if (clipButton) clipButton.focus();
+}
+
+function showExtractSection() {
+	const extractSection = document.getElementById('extract-section');
+	const editorSection = document.getElementById('editor-section');
+	if (extractSection) extractSection.style.display = 'block';
+	if (editorSection) editorSection.style.display = 'none';
+
+	const extractBtn = document.getElementById('extract-btn') as HTMLButtonElement;
+	if (extractBtn) {
+		extractBtn.textContent = 'Extract';
+		extractBtn.disabled = false;
+		extractBtn.focus();
 	}
 }
 

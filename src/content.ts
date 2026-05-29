@@ -106,7 +106,7 @@ declare global {
 						const isThinking = turn.querySelector('.mat-expansion-panel-body') !== null;
 
 						if (isThinking) {
-							parts.push(`## Model\n\n> Thoughts`);
+							parts.push(`# Model\n\n> Thoughts`);
 							continue;
 						}
 
@@ -114,14 +114,14 @@ declare global {
 						if (vlc) {
 							const text = vlc.textContent?.trim() || '';
 							if (text) {
-								parts.push(`## ${role}\n\n${text}`);
+								parts.push(`# ${role}\n\n${text}`);
 								continue;
 							}
 						}
 
 						const fileName = turn.querySelector('ms-file-chunk .name');
 						if (fileName?.textContent?.trim()) {
-							parts.push(`## ${role}\n\n📎 ${fileName.textContent.trim()}`);
+							parts.push(`# ${role}\n\n📎 ${fileName.textContent.trim()}`);
 							continue;
 						}
 					}
