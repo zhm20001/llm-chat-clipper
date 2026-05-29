@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { Template, Property } from '../types/types';
-import { incrementStat } from '../utils/storage-utils';
+import { incrementStat, saveSettings } from '../utils/storage-utils';
 import { generateFrontmatter, saveToObsidian } from '../utils/obsidian-note-creator';
 import { extractPageContent, initializePageContent } from '../utils/content-extractor';
 import { compileTemplate } from '../utils/template-compiler';
@@ -370,6 +370,15 @@ function showExtractSection() {
 		extractBtn.textContent = 'Extract';
 		extractBtn.disabled = false;
 		extractBtn.focus();
+
+		const thoughtsToggle = document.getElementById('include-thoughts-popup-toggle') as HTMLInputElement;
+		if (thoughtsToggle) {
+			thoughtsToggle.checked = generalSettings.includeThoughts;
+			thoughtsToggle.onchange = () => {
+				generalSettings.includeThoughts = thoughtsToggle.checked;
+				saveSettings({ includeThoughts: thoughtsToggle.checked });
+			};
+		}
 	}
 }
 
