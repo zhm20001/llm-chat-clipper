@@ -83,6 +83,7 @@ export function initializeGeneralSettings(): void {
 		initializeResetDefaultTemplateButton();
 		initializeExportImportAllSettingsButtons();
 		initializeSaveBehaviorDropdown();
+		initializeIncludeThoughtsToggle();
 	});
 }
 
@@ -100,6 +101,7 @@ function saveSettingsFromForm(): void {
 	const updatedSettings = {
 		...generalSettings,
 		silentOpen: silentOpenToggle?.checked ?? generalSettings.silentOpen,
+		includeThoughts: (document.getElementById("include-thoughts-toggle") as HTMLInputElement)?.checked ?? generalSettings.includeThoughts,
 	};
 
 	saveSettings(updatedSettings);
@@ -175,4 +177,10 @@ function initializeExportImportAllSettingsButtons(): void {
 	if (importAllSettingsBtn) {
 		importAllSettingsBtn.addEventListener('click', importAllSettings);
 	}
+}
+
+function initializeIncludeThoughtsToggle(): void {
+	initializeSettingToggle('include-thoughts-toggle', generalSettings.includeThoughts, (checked) => {
+		saveSettings({ ...generalSettings, includeThoughts: checked });
+	});
 }

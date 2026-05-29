@@ -97,6 +97,7 @@ export interface Settings {
 	history: HistoryEntry[];
 	ratings: Rating[];
 	saveBehavior: 'addToObsidian' | 'saveFile' | 'copyToClipboard';
+	includeThoughts: boolean;
 }
 
 export interface ModelConfig {

@@ -105,7 +105,7 @@ declare global {
 						const role = roleEl?.getAttribute('data-turn-role') || 'Unknown';
 						const isThinking = turn.querySelector('.mat-expansion-panel-body') !== null;
 
-						if (isThinking) {
+						if (isThinking && !request.includeThoughts) {
 							parts.push(`# Model\n\n> Thoughts`);
 							continue;
 						}

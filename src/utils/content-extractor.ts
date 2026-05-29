@@ -25,11 +25,11 @@ interface ContentResponse {
 	metaTags: { name?: string | null; property?: string | null; content: string | null }[];
 }
 
-async function sendExtractRequest(tabId: number): Promise<ContentResponse> {
+async function sendExtractRequest(tabId: number, includeThoughts: boolean): Promise<ContentResponse> {
 	const response = await browser.runtime.sendMessage({
 		action: "sendMessageToTab",
 		tabId: tabId,
-		message: { action: "getPageContent" }
+		message: { action: "getPageContent", includeThoughts }
 	}) as ContentResponse & { success?: boolean; error?: string };
 
 	if (response && 'success' in response && !response.success && response.error) {
@@ -43,9 +43,9 @@ async function sendExtractRequest(tabId: number): Promise<ContentResponse> {
 	throw new Error('No content received from page');
 }
 
-export async function extractPageContent(tabId: number): Promise<ContentResponse | null> {
+export async function extractPageContent(tabId: number, includeThoughts: boolean): Promise<ContentResponse | null> {
 	try {
-		return await sendExtractRequest(tabId);
+		return await sendExtractRequest(tabId, includeThoughts);
 	} catch (firstError) {
 		debugLog('Clipper', 'First extraction attempt failed, retrying...', firstError);
 		try {
@@ -54,7 +54,7 @@ export async function extractPageContent(tabId: number): Promise<ContentResponse
 			// If force-inject fails, proceed anyway
 		}
 		try {
-			return await sendExtractRequest(tabId);
+			return await sendExtractRequest(tabId, includeThoughts);
 		} catch (retryError) {
 			console.error('[Obsidian Clipper] Extraction failed after retry:', retryError);
 			throw new Error('Web Clipper was not able to start. Please try reloading the page.');

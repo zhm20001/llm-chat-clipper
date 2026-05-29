@@ -88,7 +88,7 @@ async function getCurrentTabInfo(): Promise<{ url: string; title?: string }> {
 const memoizedExtractPageContent = memoizeWithExpiration(
 	async (tabId: number) => {
 		await getTabInfo(tabId);
-		return extractPageContent(tabId);
+		return extractPageContent(tabId, generalSettings.includeThoughts);
 	},
 	{
 		expirationMs: 5000,
