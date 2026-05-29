@@ -239,8 +239,9 @@ document.addEventListener('DOMContentLoaded', async function() {
 				populateTemplateDropdown();
 				setupEventListeners(currentTabId);
 				await initializeUI();
+					await updateExtractSiteInfo(currentTabId);
 
-				determineMainAction();
+					determineMainAction();
 
 				const showMoreActionsButton = document.getElementById('show-variables');
 				if (showMoreActionsButton) {
