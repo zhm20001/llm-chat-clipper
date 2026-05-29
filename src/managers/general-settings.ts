@@ -9,7 +9,6 @@ import { createDefaultTemplate, getTemplates, saveTemplateSettings } from '../ma
 import { updateTemplateList, showTemplateEditor } from '../managers/template-ui';
 import { exportAllSettings, importAllSettings } from '../utils/import-export';
 import { Settings, Template } from '../types/types';
-import { exportHighlights } from './highlights-manager';
 import { getMessage, setupLanguageAndDirection } from '../utils/i18n';
 import { debounce } from '../utils/debounce';
 import browser from '../utils/browser-polyfill';
@@ -224,8 +223,6 @@ export function initializeGeneralSettings(): void {
 		initializeAutoSave();
 		initializeResetDefaultTemplateButton();
 		initializeExportImportAllSettingsButtons();
-		initializeHighlighterSettings();
-		initializeExportHighlightsButton();
 		initializeSaveBehaviorDropdown();
 		await initializeUsageChart();
 
@@ -401,31 +398,6 @@ function initializeExportImportAllSettingsButtons(): void {
 	const importAllSettingsBtn = document.getElementById('import-all-settings-btn');
 	if (importAllSettingsBtn) {
 		importAllSettingsBtn.addEventListener('click', importAllSettings);
-	}
-}
-
-function initializeExportHighlightsButton(): void {
-	const exportHighlightsBtn = document.getElementById('export-highlights');
-	if (exportHighlightsBtn) {
-		exportHighlightsBtn.addEventListener('click', exportHighlights);
-	}
-}
-
-function initializeHighlighterSettings(): void {
-	initializeSettingToggle('highlighter-toggle', generalSettings.highlighterEnabled, (checked) => {
-		saveSettings({ ...generalSettings, highlighterEnabled: checked });
-	});
-
-	initializeSettingToggle('highlighter-visibility', generalSettings.alwaysShowHighlights, (checked) => {
-		saveSettings({ ...generalSettings, alwaysShowHighlights: checked });
-	});
-
-	const highlightBehaviorSelect = document.getElementById('highlighter-behavior') as HTMLSelectElement;
-	if (highlightBehaviorSelect) {
-		highlightBehaviorSelect.value = generalSettings.highlightBehavior;
-		highlightBehaviorSelect.addEventListener('change', () => {
-			saveSettings({ ...generalSettings, highlightBehavior: highlightBehaviorSelect.value });
-		});
 	}
 }
 

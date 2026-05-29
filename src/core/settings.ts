@@ -11,9 +11,7 @@ import {
 } from '../managers/template-manager';
 import { updateTemplateList, showTemplateEditor, initializeAddPropertyButton, initializeTemplateValidation } from '../managers/template-ui';
 import { initializeGeneralSettings } from '../managers/general-settings';
-import { initializeInterpreterSettings } from '../managers/interpreter-settings';
 import { showSettingsSection, initializeSidebar } from '../managers/settings-section-ui';
-import { initializeReaderSettings } from '../managers/reader-settings';
 import { initializeAutoSave } from '../utils/auto-save';
 import { handleTemplateDrag, initializeDragAndDrop } from '../utils/drag-and-drop';
 import { exportTemplate, showTemplateImportModal, copyTemplateToClipboard } from '../utils/import-export';
@@ -51,15 +49,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 			await translatePage();
 
 			await initializeGeneralSettings();
-			await initializeReaderSettings();
-			
-			// Initialize interpreter settings with error handling
-			try {
-				await initializeInterpreterSettings();
-			} catch (error) {
-				console.error('Error initializing interpreter settings, continuing with defaults:', error);
-			}
-			
+
 			// Load templates with error handling
 			let loadedTemplates;
 			try {

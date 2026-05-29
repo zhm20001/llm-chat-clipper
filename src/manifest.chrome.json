@@ -1,19 +1,17 @@
 {
 	"manifest_version": 3,
 	"default_locale": "en",
-	"name": "Obsidian Web Clipper",
-	"homepage_url": "https://obsidian.md/",
+	"name": "LLM Chat Clipper",
+	"homepage_url": "https://github.com/user/obsidian-clipper",
 	"version": "1.6.3",
-	"description": "Save and highlight web pages in a private and durable format that you can access offline. The official extension for Obsidian.",
+	"description": "Extract LLM chat conversations as structured Markdown. Based on Obsidian Web Clipper.",
 	"permissions": [
 		"activeTab",
 		"clipboardWrite",
 		"commands",
 		"contextMenus",
-		"sidePanel",
 		"storage",
-		"scripting",
-		"declarativeNetRequest"
+		"scripting"
 	],
 	"host_permissions": [
 		"<all_urls>",
@@ -22,9 +20,6 @@
 	],
 	"action": {
 		"default_popup": "popup.html"
-	},
-	"side_panel": {
-		"default_path": "side-panel.html"
 	},
 	"options_ui": {
 		"page": "settings.html",
@@ -46,7 +41,7 @@
 	],
 	"web_accessible_resources": [
 		{
-			"resources": ["reader.css", "reader-script.js", "browser-polyfill.min.js", "style.css", "side-panel.html", "flatten-shadow-dom.js", "highlighter.css"],
+			"resources": ["browser-polyfill.min.js", "style.css", "flatten-shadow-dom.js"],
 			"extension_ids": ["*"],
 			"matches": [ "*://*/*" ]
 		}
@@ -68,20 +63,6 @@
 				"mac": "Alt+Shift+O"
 			},
 			"description": "__MSG_commandQuickClip__"
-		},
-		"toggle_highlighter": {
-			"suggested_key": {
-				"default": "Alt+Shift+H",
-				"mac": "Alt+Shift+H"
-			},
-			"description": "__MSG_commandToggleHighlighter__"
-		},
-		"toggle_reader": {
-			"suggested_key": {
-				"default": "Alt+Shift+R",
-				"mac": "Alt+Shift+R"
-			},
-			"description": "__MSG_commandToggleReader__"
 		}
 	}
 }

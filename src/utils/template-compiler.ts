@@ -7,7 +7,6 @@ import { applyFilterDirect } from './filters';
 import { processSimpleVariable } from './variables/simple';
 import { processSelector, resolveSelector } from './variables/selector';
 import { processSchema } from './variables/schema';
-import { processPrompt } from './variables/prompt';
 
 /**
  * A function that processes a selector match string and returns the result.
@@ -107,8 +106,8 @@ export async function processVariables(
 			}
 		} else if (trimmedMatch.startsWith('schema:')) {
 			replacement = await processSchema(fullMatch, variables, currentUrl);
-		} else if (trimmedMatch.startsWith('"') || trimmedMatch.startsWith('prompt:')) {
-			replacement = await processPrompt(fullMatch, variables, currentUrl);
+		} else if (trimmedMatch.startsWith('prompt:')) {
+			replacement = '';
 		} else {
 			replacement = await processSimpleVariable(trimmedMatch, variables, currentUrl);
 		}
