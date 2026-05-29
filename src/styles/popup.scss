@@ -383,6 +383,24 @@
 	gap: 0.75rem;
 	padding: 1.5rem;
 
+	#extract-site-info {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.25rem;
+
+		#extract-site-name {
+			font-size: var(--font-ui-medium);
+			font-weight: 600;
+			color: var(--text-normal);
+		}
+
+		#extract-template-name {
+			font-size: var(--font-ui-smaller);
+			color: var(--text-muted);
+		}
+	}
+
 	#extract-btn {
 		width: 100%;
 		font-weight: var(--clipper-button-font-weight);

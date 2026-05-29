@@ -372,6 +372,29 @@ function showExtractSection() {
 	}
 }
 
+async function updateExtractSiteInfo(tabId: number) {
+	try {
+		const tab = await getTabInfo(tabId);
+		const url = tab.url;
+
+		const matchedTemplate = await findMatchingTemplate(url, async () => undefined);
+		if (matchedTemplate) {
+			currentTemplate = matchedTemplate;
+			updateTemplateDropdown();
+		}
+
+		const siteNameEl = document.getElementById('extract-site-name');
+		const templateNameEl = document.getElementById('extract-template-name');
+
+		if (siteNameEl && templateNameEl && currentTemplate) {
+			siteNameEl.textContent = new URL(url).hostname;
+			templateNameEl.textContent = currentTemplate.name;
+		}
+	} catch (error) {
+		console.warn('Failed to update extract site info:', error);
+	}
+}
+
 function showError(messageKey: string): void {
 	const errorMessage = document.querySelector('.error-message') as HTMLElement;
 	const clipper = document.querySelector('.clipper') as HTMLElement;
