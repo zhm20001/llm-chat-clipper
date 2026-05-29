@@ -242,12 +242,21 @@ declare global {
 							continue;
 						}
 
+						// Try very-large-text-container first (text content)
 						const vlc = turn.querySelector('.very-large-text-container');
 						if (vlc) {
 							const text = vlc.textContent?.trim() || '';
 							if (text) {
 								parts.push(`## ${role}\n\n${text}`);
+								continue;
 							}
+						}
+
+						// Fallback: file attachment (ms-file-chunk → span.name)
+						const fileName = turn.querySelector('ms-file-chunk .name');
+						if (fileName?.textContent?.trim()) {
+							parts.push(`## ${role}\n\n📎 ${fileName.textContent.trim()}`);
+							continue;
 						}
 					}
 					if (parts.length > 0) {
