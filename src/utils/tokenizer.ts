@@ -638,7 +638,7 @@ function tokenizeString(state: TokenizerState): void {
 				case '\\': value += '\\'; break;
 				case '"': value += '"'; break;
 				case "'": value += "'"; break;
-				default: value += escaped;
+				default: value += '\\' + escaped;
 			}
 			advanceChar(state);
 			continue;
@@ -696,7 +696,7 @@ function tokenizeEscapedArgument(state: TokenizerState): void {
 				case 'r': value += '\r'; break;
 				case ',': value += ','; break;
 				case '|': value += '|'; break;
-				default: value += escaped; // Unknown escape, just use the character
+				default: value += '\\' + escaped;
 			}
 			advanceChar(state);
 			advanceChar(state);
