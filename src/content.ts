@@ -237,7 +237,10 @@ declare global {
 						const role = roleEl?.getAttribute('data-turn-role') || 'Unknown';
 						const isThinking = turn.querySelector('.mat-expansion-panel-body') !== null;
 
-						if (isThinking) continue;
+						if (isThinking) {
+							parts.push(`## Model\n\n> Thoughts`);
+							continue;
+						}
 
 						const vlc = turn.querySelector('.very-large-text-container');
 						if (vlc) {
