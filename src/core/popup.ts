@@ -370,16 +370,6 @@ function showExtractSection() {
 		extractBtn.textContent = 'Extract';
 		extractBtn.disabled = false;
 		extractBtn.focus();
-
-		const thoughtsToggle = document.getElementById('include-thoughts-popup-toggle') as HTMLInputElement;
-		if (thoughtsToggle) {
-			thoughtsToggle.checked = generalSettings.includeThoughts;
-			thoughtsToggle.onchange = () => {
-				generalSettings.includeThoughts = thoughtsToggle.checked;
-				saveSettings({ includeThoughts: thoughtsToggle.checked });
-				memoizedExtractPageContent.clear();
-			};
-		}
 	}
 }
 
