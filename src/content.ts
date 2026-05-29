@@ -223,6 +223,37 @@ declare global {
 					...defuddled.variables,
 				};
 
+				// Extract chat turns from AI Studio by scrolling to each turn sequentially
+				const allTurns = document.querySelectorAll('ms-chat-turn');
+				if (allTurns.length > 0) {
+					const parts: string[] = [];
+					for (let i = 0; i < allTurns.length; i++) {
+						const turn = allTurns[i] as HTMLElement;
+						// Scroll this turn into view so its content renders
+						turn.scrollIntoView({ block: 'center', behavior: 'instant' });
+						await new Promise(r => setTimeout(r, 300));
+
+						const roleEl = turn.querySelector('[data-turn-role]');
+						const role = roleEl?.getAttribute('data-turn-role') || 'Unknown';
+						const isThinking = turn.querySelector('.mat-expansion-panel-body') !== null;
+
+						if (isThinking) continue;
+
+						const vlc = turn.querySelector('.very-large-text-container');
+						if (vlc) {
+							const text = vlc.textContent?.trim() || '';
+							if (text) {
+								parts.push(`## ${role}\n\n${text}`);
+							}
+						}
+					}
+					if (parts.length > 0) {
+						extractedContent['rawContent'] = parts.join('\n\n');
+					}
+					// Scroll back to top
+					window.scrollTo({ top: 0, behavior: 'instant' });
+				}
+
 				// Create a new DOMParser
 				const parser = new DOMParser();
 				// Parse the document's HTML
