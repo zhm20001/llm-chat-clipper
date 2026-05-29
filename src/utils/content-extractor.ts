@@ -57,7 +57,7 @@ export async function extractPageContent(tabId: number, includeThoughts: boolean
 			return await sendExtractRequest(tabId, includeThoughts);
 		} catch (retryError) {
 			console.error('[Obsidian Clipper] Extraction failed after retry:', retryError);
-			throw new Error('Web Clipper was not able to start. Please try reloading the page.');
+			throw new Error('LLM Chat Clipper was not able to start. Please try reloading the page.');
 		}
 	}
 }

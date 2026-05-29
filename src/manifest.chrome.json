@@ -2,9 +2,9 @@
 	"manifest_version": 3,
 	"default_locale": "en",
 	"name": "LLM Chat Clipper",
-	"homepage_url": "https://github.com/user/obsidian-clipper",
+	"homepage_url": "https://github.com/zhm20001/llm-chat-clipper",
 	"version": "0.2.0",
-	"description": "Extract LLM chat conversations as structured Markdown. Based on Obsidian Web Clipper.",
+	"description": "Extract LLM chat conversations as structured Markdown.",
 	"permissions": [
 		"activeTab",
 		"clipboardWrite",
