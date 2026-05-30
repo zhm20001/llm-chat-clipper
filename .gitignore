@@ -14,7 +14,12 @@ dist_firefox/
 dist_safari/
 builds/
 changelogs/
-assets/shared
+assets/
+clipper-templates-llm/
+src/manifest.safari.json
+src/manifest.firefox.json
+ONBOARDING.md
+METHODOLOGY.md
 
 # Xcode
 *.xcuserstate
