@@ -14,10 +14,24 @@ dist_firefox/
 dist_safari/
 builds/
 changelogs/
+
+# Residual from original repo
 assets/
 clipper-templates-llm/
+docs/
+scripts/
+xcode/
+.github/
+providers.json
 src/manifest.safari.json
 src/manifest.firefox.json
+src/cli.ts
+src/api.ts
+src/utils/charts.ts
+src/utils/hotkeys.ts
+src/utils/cli-utils.ts
+src/utils/cli-stubs.ts
+src/styles/charts.scss
 ONBOARDING.md
 METHODOLOGY.md
 
